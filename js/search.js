@@ -22,8 +22,7 @@
 
 //query type object:
 // {name:string,introduction:string,parameter_type:'String',query_type:string,is_explicit:boolean}
-    //String_Array,Number_Array,Time_Span_Array,DateTime,Timespan,String,Number,Boolean
-
+ //String_Array,Number_Array,Time_Span_Array,DateTime,Timespan,String,Number,Boolean
 
 
 var Search = {
@@ -34,7 +33,6 @@ var Search = {
         //public
         var search = {};
 
-
         search.queries = {};
 
         search. current_mode = 'full_text';
@@ -42,10 +40,19 @@ var Search = {
         search.entity = "";
 
 
+        //buffer query types from server.Buffer into the local storage if possible
+        //{"key":[],"kk":[]}
+        search.query_types_buffered = {};
+
+        //a query type obj
+        search.current_query = null
+
+        ;
+        /*
+        *UI
+         */
         //the input controller
         search.input = null;
-
-        search.current_query = null;
 
         //the list controller
         search.query_list = null;
@@ -54,8 +61,9 @@ var Search = {
 
         search.query_container=null;
 
+
         //change the behavior of the input control
-        search.switch_mode = function(mode){
+        search.switch_mode = function(mode,options){
             var result = false;
             if ($.inArray(mode,['full_text','select_query','conditions'])>=0){
                 switch(this.current_mode){
@@ -79,18 +87,26 @@ var Search = {
                             this.cast_queries();
                             result =  true
                         }
-                        else if(mode=="query_select"){
+                        else if(mode=="select_query"){
                             result=  true
                         }
                         break;
                 }
-                //set the onkeyup event
+                //bind event
                 if(result) {
-                    this.input.bind("keyup",this.handler[mode])
-                    this.set_notice(this.notice[mode]);
-                    this.current_mode = mode;
+                    this.bind(mode);
 
+                    if (options && options["notice"]){
+                        this.set_notice(options["notice"]);
+                    }
+                    else {
+                        this.set_notice(this.notice[mode]);
+                    }
+
+                    this.current_mode = mode;
                 }
+
+                this.input.val("");
                 this.input.focus();
             }
         };
@@ -111,11 +127,11 @@ var Search = {
 
 
         //handler when certain query is selected
-        search.select_query = function(query){
-            if(this.current_mode=='select_query')
-            this.current_query = query;
-            this.switch_mode("conditions")
-        };
+        //search.query_selected = function(query){
+        //    if(this.current_mode=='select_query')
+        //    this.current_query = query;
+        //    this.switch_mode("conditions")
+        //};
 
 
         //set the proper notification when switch the mode
@@ -135,40 +151,174 @@ var Search = {
         search.handler = {
 
             full_text: function(event){
-                if(event.which==13){alert(this.value);}
-                else if(event.which==16){
+                if(event.which==13){alert("还未完成,通讯服务器获得数据");}
+                else if(event.which==51){
                     if(this.value.length==1){
-                        this.switch_mode("select_query");
+                        event.data.obj.switch_mode("select_query");
                     }
                 }
             },
-            input_conditions:function(){
 
+            select_query:function(event){
+                //find buffer or get query and buffer it
+                var obj = event.data.obj;
+                if(event.which==51 && this.value.length==1){
+                        event.data.obj.switch_mode("full_text");
+                }
+
+                else if(event.which == 13){
+                    alert("还未完成，与服务器通讯，获得数据并帮定")
+                }
+                else{
+                    var buffer = obj.get_buffer(this.value);
+
+                    if(!buffer){
+                        obj.load_buffer(this.value,obj.bind_auto_complete);
+                    }
+                    else{
+                        obj.bind_auto_complete(buffer,obj);
+                    }
+                }
             },
-            select_conditions:function(){
 
+            conditions:function(event){
+                //set the notification if necessary
+                //when enter triggerred, switch mode to select_query
+                //save the condition to container and UI container
 
+                if(event.which==51 && this.value.length==1){
+                    event.data.obj.switch_mode("full_text");
+                }
+                else if(event.which==27){
+                    //esc
+                    event.data.obj.cancel();
+                }
+                else{
+                    var context = event.data.obj;
+                    if(event.which==13) {
+                        var result = context.validate_condition();
+                        if(result.success){
+                            //bind query
+                            context.bind_query();
+                            context.current_query = null;
+                            context.switch_mode("select_query");
+                        }
+                        else{
+                            context.show_warning(result.msg,"ERROR");
+                        }
+                    }
+                }
             }
         };
 
-        //the query type description working under process
-        search.current_condition = null;
+        search.bind_query = function(){
+            if(this.queries){
+                this.queries = {};
+            }
+           this.queries[this.current_query["query_type"]]=this.get_conditions();
+           this.query_list.find("#"+this.current_query["query_type"]).remove();
+           this.query_list.append(this.template["query_item"]
+              .replace(/!name!/g,this.current_query["name"])
+              .replace(/!condition!/g,this.get_conditions())
+              .replace(/!id!/g,this.current_query["query_type"]));
 
-        //buffer query types from server.Buffer into the local storage if possible
-        // {"Course":{"k":[{},{},{}]},"Student":{}}
-        search.bufferred_query_types = {};
-
-        //get a query_type_description. Trigger by text_changed event of the input control
-        search.get_query_type_by_key = function(){
-
-
+            //context.queries[context.current_query["query_type"]]= this.get_conditions();
         };
 
-        search.query_types_buffered = {};
+        search.get_conditions = function(){
+            if(this.current_query){
+              var parsed = this.condition_validator[this.current_query["parameter_type"]](this.input.val());
+              if (parsed.success){
+                  return parsed.result;
+              }
+            }
+        };
+
+       // String_Array,Number_Array,Time_Span,DateTime,String,Number
+        search.condition_validator = {
+            //always return {success:true/false,result:obj,msg:}
+
+          string_array:function(condition_str){
+             return {success:true,result:condition_str.split(/\s|,/)};
+          },
+
+          number_array:function(condition_str){
+
+          },
+
+          time_span:function(condition_str){},
+          number_span:function(condition_str){},
+
+          date_time:function(condition_str){},
+
+          string:function(condition_str){
+              return {success:true,result:condition_str.toString()};
+          },
+
+          number:function(condition_str){
+              var result = {success:false,result:null,msg:"这个搜索条件只能接受数字"};
+              if(isFinite(condition_str)){
+                  result.success = true;
+                  result.result = parseFloat(condition_str);
+              }
+              return result;
+          }
+        };
+
+
+        //level:WARN,OK,ERROR
+        search.show_warning = function(msg,level){
+            alert(msg);
+        };
+
+
+        search.bind_auto_complete = function(data,obj){
+            //when a item is selected, should give the query object to current_query object and switch mode
+            //to conditions
+            alert("bind_auto_complete is not finished");
+            //put half second
+            obj.current_query = data[0];
+            obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
+        };
+
+
+        search.validate_condition = function(){
+          return {success:true,msg:""};
+        };
+
+        search.get_buffer = function(key){
+            if(!this.query_types_buffered) {this.query_types_buffered = {};}
+              var mk_key = this.make_buffer_storage_key(this.entity,key);
+            if(!this.query_types_buffered[mk_key]){
+                if(window.localStorage){
+                   if(localStorage[mk_key])
+                       this.query_types_buffered[mk_key]= JSON.parse(localStorage[mk_key]);
+                }
+            }
+                return this.query_types_buffered[mk_key];
+        };
+
+        search.make_buffer_storage_key = function(entity_name,key){
+            return "QUERY_BUFFER_" + entity_name + "|" + key;
+        };
+
+        search.load_buffer = function(key,callback){
+           // $.ajax(
+             //   {success:function(){}} //write buffer, excute callback
+            //);
+            alert("load_buffer has not been finished")
+
+            var data = [{name:"名字",introduction:"请输入名字",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
+            this.query_types_buffered[this.make_buffer_storage_key(this.entity,key)]=data;
+            localStorage[this.make_buffer_storage_key(this.entity,key)] =JSON.stringify(data);
+            callback(data,this);
+        };
 
         //save the condition combination as a view
-        search.save = function(name){};
+        search.save = function(name){
+            //save the user view
 
+        };
 
         //init the input control and global parameter
         //type: the default mode of the input control
@@ -178,11 +328,11 @@ var Search = {
         search.init = function(mode,entity,search_control,query_container){
 
             //1.put the input into the container
-            this.search_control =   $(search_control)
+            this.search_control = $(search_control);
             this.search_control.append(this.template.input);
             this.input =   $('#search_input');
             //2. init the query container
-            this.query_container =  $(query_container)
+            this.query_container =  $(query_container);
             this.query_container.append(this.template.query_list);
             this.query_list = $('#query_list');
 
@@ -195,55 +345,55 @@ var Search = {
 
             //4.bind the handle for one time
             this.bind(mode);
-            //4. wait for input
+
+            //5. find the version number and compare the localstorage. If localstorage exists, return it.
+           // if not in WIFI mode, in a smaller batch
+
+
+            //6. wait for input
         };
-
-
 
 
         //bind the query_type_description to the input and
         // other possible controller. Invoke this function when a query type is selected
         search.bind = function(mode){
             //this.input.unbind("keyup");
-            this.input.unbind("keydown").bind("keydown",this.handler[mode])
+            this.input.unbind("keyup").bind("keyup",{obj:this},this.handler[mode])
         };
 
         //edit the conditions for a certain query
-        search.edit = function(query){
+        search.edit = function(query_type){
             //add input text
             //set the current query to the query name
             //switch mode to conditions
             //delete the item from stored queries
+
+
         };
-
-
 
         //re-init all the things when user cancel to input conditions for a query
         search.cancel= function(){
             //restore the select query mode
+            this.current_query = null;
             this.switch_mode("select_query")
         };
 
 
         //delete a condition from the current combination
-        search.delete_query = function(){
+        search.delete_query = function(id){
             //remove from the hash
             //remove from the container
+            this.queries.remove(id);
+            this.query_list("#" + id).remove();
         };
-
-        //add a condition to the current combination
-        search.add_query = function(){
-            //add to the container
-            //add to the hash
-        };
-
 
 
         search.template = {
             input:"<input type='text' name='fname' class='search_input_class'" +
                 "id='search_input'" +
-                "placeholder='已经热切准备为您搜索一切,直接输入关键字开始搜索，或键入＃开始更为精确的搜索'/>",
-            query_list:"<div id='query_list'></div>"
+                "placeholder='已经准备为您搜索一切,直接输入关键字开始搜索，或键入＃开始更为精确的搜索'/>",
+            query_list:"<div id='query_list'></div>",
+            query_item: "<div id='!id!'><span>!name!</span><span>!condition!</span><a href='#'>delete</a><a href='#'>edit</a></div>"
         };
 
         return search;
