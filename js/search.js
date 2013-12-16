@@ -27,7 +27,18 @@
 
 var Search = {
     //constructor
+    private_instance: null,
+
+    //singleton methods
+    instance:function(){
+        if(!this.private_instance){
+            this.private_instance = this.create_new()
+        }
+       return this.private_instance;
+    },
+
     create_new: function(){
+
         //private
 
         //public
@@ -249,7 +260,9 @@ var Search = {
           time_span:function(condition_str){},
           number_span:function(condition_str){},
 
-          date_time:function(condition_str){},
+          date_time:function(condition_str){
+
+          },
 
           string:function(condition_str){
               return {success:true,result:condition_str.toString()};
@@ -307,6 +320,9 @@ var Search = {
              //   {success:function(){}} //write buffer, excute callback
             //);
             alert("load_buffer has not been finished")
+
+
+
 
             var data = [{name:"名字",introduction:"请输入名字",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
             this.query_types_buffered[this.make_buffer_storage_key(this.entity,key)]=data;
@@ -383,8 +399,9 @@ var Search = {
         search.delete_query = function(id){
             //remove from the hash
             //remove from the container
-            this.queries.remove(id);
-            this.query_list("#" + id).remove();
+            this.queries[id]=null;
+            alert( id);
+            this.query_list.find("#" + id).remove();
         };
 
 
@@ -393,7 +410,7 @@ var Search = {
                 "id='search_input'" +
                 "placeholder='已经准备为您搜索一切,直接输入关键字开始搜索，或键入＃开始更为精确的搜索'/>",
             query_list:"<div id='query_list'></div>",
-            query_item: "<div id='!id!'><span>!name!</span><span>!condition!</span><a href='#'>delete</a><a href='#'>edit</a></div>"
+            query_item: "<div id='!id!'><span>!name!</span><span>!condition!</span><a href='#' onclick=Search.instance().delete_query('!id!')>delete</a><a href='#'>edit</a></div>"
         };
 
         return search;

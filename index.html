@@ -21,17 +21,10 @@
         <div id="container_for_input"></div>
         <div id="container_for_list"></div>
     <script>
-        search_obj = Search.create_new();
+        search_obj = Search.instance();
         search_obj.init("full_text","Course",$("#container_for_input"),$("#container_for_list"));
 
-        if (window.localStorage){
-            obj = {a:{a:'a'},b:{b:'b'},c:{c:'c'}};
-            localStorage['ok'] = JSON.stringify(obj);
-            alert(JSON.stringify(JSON.parse(localStorage['ok'])));
 
-
-
-        }
     </script>
 
     </body>
