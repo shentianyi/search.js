@@ -168,6 +168,7 @@ var Search = {
                 else if(event.which==51){
                     if(this.value.length==1){
                         event.data.obj.switch_mode("select_query");
+                        WAYNE.change_mode(event,"select_query");
                     }
                 }
             },
@@ -177,12 +178,17 @@ var Search = {
                 var obj = event.data.obj;
                 if(event.which==51 && this.value.length==1){
                         event.data.obj.switch_mode("full_text");
+                        WAYNE.change_mode(event,"full_text");
                 }
 
                 else if(event.which == 13){
                     alert("还未完成，与服务器通讯，获得数据并帮定")
                 }
-                else{
+                else if(event.which==40 || event.which==38){
+                    //把方向键上下排除掉
+                }
+                else {
+
                     var buffer = obj.get_buffer(this.value);
 
                     if(!buffer){
@@ -201,6 +207,7 @@ var Search = {
 
                 if(event.which==51 && this.value.length==1){
                     event.data.obj.switch_mode("full_text");
+                    WAYNE.change_mode(event,"full_text");
                 }
                 else if(event.which==27){
                     //esc
@@ -215,6 +222,7 @@ var Search = {
                             context.bind_query();
                             context.current_query = null;
                             context.switch_mode("select_query");
+                            WAYNE.change_mode(event,"select_query");
                         }
                         else{
                             context.show_warning(result.msg,"ERROR");
@@ -288,15 +296,48 @@ var Search = {
 
 
         search.bind_auto_complete = function(data,obj){
+            console.log(data);
+            console.log(obj);
             //when a item is selected, should give the query object to current_query object and switch mode
             //to conditions
-            alert("bind_auto_complete is not finished");
+
+//            alert("bind_auto_complete is not finished");
+
             //put half second
-            obj.current_query = data[0];
-            if(!obj.query_types[obj.current_query['query_type']]){
-                obj.query_types[obj.current_query['query_type']] = obj.current_query;
+            //here do something to generate the autocomplete
+            var $target = $("#autoComplete-call>ul");
+            if(data.length > 0) {
+                $("#autoComplete-call>ul").empty();
+                var data_template={my_data:data}
+                var render = Mustache.render("{{#my_data}}<li name='{{name}}' query_type='{{query_type}}' >" +
+                    "<p>{{introduction}}</p>"+
+                    "</li>{{/my_data}}", data_template );
+                $target.append(render);
+            } else {
+                $("#autoComplete-call>ul").empty();
+                $target.append($("<p />").addClass("no_match").text("没有匹配内容..."))
             }
-            obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
+            //here to bind event to on_select_callback
+            var obj=obj,data=data;
+            $("#autoComplete-call li").on("click",{obj:obj,data:data},function(event){
+                console.log(event.data.obj);
+                console.log(event.data.data);
+                var obj=event.data.obj;
+                var data=event.data.data;
+                obj.current_query = data;
+                if(!obj.query_types[obj.current_query['query_type']]){
+                    obj.query_types[obj.current_query['query_type']] = obj.current_query;
+                }
+                obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
+            })
+//            var on_select_callback = function(obj,data){
+//                obj.current_query = data;
+//                if(!obj.query_types[obj.current_query['query_type']]){
+//                    obj.query_types[obj.current_query['query_type']] = obj.current_query;
+//                }
+//                obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
+//            }
+
         };
 
 
@@ -324,12 +365,16 @@ var Search = {
            // $.ajax(
              //   {success:function(){}} //write buffer, excute callback
             //);
-            alert("load_buffer has not been finished")
+
+//            alert("load_buffer has not been finished")
+
+//            var data = [{name:"名字",introduction:"请输入s名字",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
+//
+            var data = [{name:"学生1",introduction:"按名字",parameter_type:'string',query_type:"StudentName",is_explicit:false},
+                {name:"学生2",introduction:"按母子查找",parameter_type:'string',query_type:"StudentName",is_explicit:false},
+                {name:"学生3",introduction:"按帽子查找",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
 
 
-
-
-            var data = [{name:"名字",introduction:"请输入名字",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
             this.query_types_buffered[this.make_buffer_storage_key(this.entity,key)]=data;
             localStorage[this.make_buffer_storage_key(this.entity,key)] =JSON.stringify(data);
             if (callback){
@@ -429,7 +474,7 @@ var Search = {
 
         search.template = {
             input:"<input type='text' name='fname' class='search_input_class'" +
-                "id='search_input'" +
+                "id='search_input'"+
                 "placeholder='已经准备为您搜索一切,直接输入关键字开始搜索，或键入＃开始更为精确的搜索'/>",
             query_list:"<div id='query_list'></div>",
             query_item: "<div id='!id!'><span>!name!</span><span>!condition!</span><a href='#' onclick=Search.instance().delete_query('!id!')>delete</a><a href='#' onclick=Search.instance().edit('!id!')>edit</a></div>"
@@ -438,3 +483,17 @@ var Search = {
         return search;
     }
 };
+var WAYNE=WAYNE ||{};
+WAYNE.change_mode=function(event,mode){
+  switch(mode){
+      case "full_text":
+          $(event.target).attr("autocomplete","").parent().removeClass("autoComplete");
+          break;
+      case "select_query":
+          $(event.target).attr("autocomplete","experiment").parent().addClass("autoComplete");
+          break;
+      case "conditions":
+          break;
+  }
+
+}
