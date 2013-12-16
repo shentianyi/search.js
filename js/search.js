@@ -50,6 +50,8 @@ var Search = {
 
         search.entity = "";
 
+        search.query_types = {};
+
 
         //buffer query types from server.Buffer into the local storage if possible
         //{"key":[],"kk":[]}
@@ -291,6 +293,9 @@ var Search = {
             alert("bind_auto_complete is not finished");
             //put half second
             obj.current_query = data[0];
+            if(!obj.query_types[obj.current_query['query_type']]){
+                obj.query_types[obj.current_query['query_type']] = obj.current_query;
+            }
             obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
         };
 
@@ -327,7 +332,9 @@ var Search = {
             var data = [{name:"名字",introduction:"请输入名字",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
             this.query_types_buffered[this.make_buffer_storage_key(this.entity,key)]=data;
             localStorage[this.make_buffer_storage_key(this.entity,key)] =JSON.stringify(data);
+            if (callback){
             callback(data,this);
+            }
         };
 
         //save the condition combination as a view
@@ -377,12 +384,28 @@ var Search = {
             this.input.unbind("keyup").bind("keyup",{obj:this},this.handler[mode])
         };
 
+        search.get_query_object = function(key){
+          if (!this.get_buffer(key)){
+              this.load_buffer(key);
+          }
+            return this.get_buffer(key);
+        };
+
         //edit the conditions for a certain query
         search.edit = function(query_type){
             //add input text
             //set the current query to the query name
             //switch mode to conditions
             //delete the item from stored queries
+
+
+            this.current_query = this.query_types[query_type];
+
+            this.switch_mode("conditions",{notice:this.current_query["introduction"]});
+
+            this.input.val(this.queries[query_type]);
+
+            this.delete_query(query_type);
 
 
         };
@@ -400,7 +423,6 @@ var Search = {
             //remove from the hash
             //remove from the container
             this.queries[id]=null;
-            alert( id);
             this.query_list.find("#" + id).remove();
         };
 
@@ -410,7 +432,7 @@ var Search = {
                 "id='search_input'" +
                 "placeholder='已经准备为您搜索一切,直接输入关键字开始搜索，或键入＃开始更为精确的搜索'/>",
             query_list:"<div id='query_list'></div>",
-            query_item: "<div id='!id!'><span>!name!</span><span>!condition!</span><a href='#' onclick=Search.instance().delete_query('!id!')>delete</a><a href='#'>edit</a></div>"
+            query_item: "<div id='!id!'><span>!name!</span><span>!condition!</span><a href='#' onclick=Search.instance().delete_query('!id!')>delete</a><a href='#' onclick=Search.instance().edit('!id!')>edit</a></div>"
         };
 
         return search;

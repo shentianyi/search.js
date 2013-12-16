@@ -5,7 +5,7 @@
     <ignored path="search.js.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387162654778" ignored="false" />
-    <file path="/search.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387169311644" ignored="false" />
+    <file path="/search.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387172704117" ignored="false" />
     <file path="/index.html" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387167803630" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="search.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="25" selection-start="1781" selection-end="1786" vertical-scroll-proportion="0.33223686">
+            <state line="405" column="53" selection-start="12934" selection-end="12934" vertical-scroll-proportion="0.77960527">
               <folding />
             </state>
           </provider>
@@ -283,7 +283,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="13" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -310,7 +310,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="25" selection-start="1781" selection-end="1786" vertical-scroll-proportion="0.33223686">
+        <state line="405" column="53" selection-start="12934" selection-end="12934" vertical-scroll-proportion="0.77960527">
           <folding />
         </state>
       </provider>
