@@ -256,14 +256,44 @@ var Search = {
           },
 
           number_array:function(condition_str){
+              var arr = condition_str.split(/[^0-9]+/);
+              var suc = true;
+              if(!arr || arr.length==0){
+                  suc=false;
+              }
+              else{
+                  for(var i in arr) {
+                      if (!isFinite(arr[i])){
+                          suc=false;
+                      }
+                  }
+              }
+              return {success:suc,result:arr,msg:"只能是数字"}
+          },
+
+          time_span:function(condition_str){
 
           },
 
-          time_span:function(condition_str){},
-          number_span:function(condition_str){},
+          number_span:function(condition_str){
+              var arr = condition_str.split(/[^0-9]+/);
+              var suc = true;
+              if(!arr ||arr.length != 2||!isFinite(arr[0]) || !isFinite(arr[1])) {
+                  suc=false;
+              }
+              else{
+                  arr = arr.sort();
+              }
+              return {success:suc,result:arr,msg:"只能是一个数字范围"}
+          },
 
           date_time:function(condition_str){
-
+              var date = new Date(Date.parse(condition_str));
+              var suc = true;
+              if( date== "Invalid Date"){
+                   suc = false;
+              }
+              return {success:suc,result:date,msg:"只能是时间字符串"};
           },
 
           string:function(condition_str){
@@ -292,12 +322,18 @@ var Search = {
             //to conditions
             alert("bind_auto_complete is not finished");
             //put half second
-            obj.current_query = data[0];
-            if(!obj.query_types[obj.current_query['query_type']]){
-                obj.query_types[obj.current_query['query_type']] = obj.current_query;
+            //here do something to generate the autocomplete
+            //here to bind event to on_select_callback
+            var on_select_callback = function(obj,data){
+                obj.current_query = data;
+                if(!obj.query_types[obj.current_query['query_type']]){
+                    obj.query_types[obj.current_query['query_type']] = obj.current_query;
+                }
+                obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
             }
-            obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
         };
+
+
 
 
         search.validate_condition = function(){
@@ -406,8 +442,6 @@ var Search = {
             this.input.val(this.queries[query_type]);
 
             this.delete_query(query_type);
-
-
         };
 
         //re-init all the things when user cancel to input conditions for a query
