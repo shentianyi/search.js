@@ -98,10 +98,13 @@ var Search = {
                         this.current_query = null;
                         if(mode=="full_text"){
                             this.cast_queries();
-                            result =  true
+                            result =  true;
+                        }
+                        else if(mode=="conditions"){
+                            result = true;
                         }
                         else if(mode=="select_query"){
-                            result=  true
+                            result=  true;
                         }
                         break;
                 }
@@ -340,7 +343,7 @@ var Search = {
             if(data.length > 0) {
                 $("#autoComplete-call>ul").empty();
                 var data_template={my_data:data}
-                var render = Mustache.render("{{#my_data}}<li name='{{name}}' query_type='{{query_type}}' >" +
+                var render = Mustache.render("{{#my_data}}<li name={{name}} is_explicit={{is_explicit}} query_type={{query_type}} parameter_type={{parameter_type}} introduction={{introduction}} query_type='{{query_type}}' >" +
                     "<p>{{introduction}}</p>"+
                     "</li>{{/my_data}}", data_template );
                 $target.append(render);
@@ -349,18 +352,29 @@ var Search = {
                 $target.append($("<p />").addClass("no_match").text("没有匹配内容..."))
             }
             //here to bind event to on_select_callback
-            var obj=obj,data=data;
-            $("#autoComplete-call li").on("click",{obj:obj,data:data},function(event){
+            var obj=obj;
+            var callback =  function(event){
+                event.stopPropagation();
                 console.log(event.data.obj);
-                console.log(event.data.data);
                 var obj=event.data.obj;
-                var data=event.data.data;
+                var $target=$(this);
+                var data={
+                    name:$target.attr("name"),
+                    introduction:$target.attr("introduction"),
+                    parameter_type:$target.attr("parameter_type"),
+                    query_type:$target.attr("query_type"),
+                    is_explicit:$target.attr("is_explicit")
+                };
+                console.log(data);
                 obj.current_query = data;
                 if(!obj.query_types[obj.current_query['query_type']]){
                     obj.query_types[obj.current_query['query_type']] = obj.current_query;
                 }
                 obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
-            });
+            };
+            $("#autoComplete-call li").on("click",{obj:obj},callback);
+            $("#autoComplete-call li").unbind("keyup").bind("keyup",{obj:obj},callback);
+
 //            var on_select_callback = function(obj,data){
 //                obj.current_query = data;
 //                if(!obj.query_types[obj.current_query['query_type']]){
@@ -403,9 +417,9 @@ var Search = {
 
 //            var data = [{name:"名字",introduction:"请输入s名字",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
 //
-            var data = [{name:"学生1",introduction:"按名字",parameter_type:'string',query_type:"StudentName",is_explicit:false},
-                {name:"学生2",introduction:"按母子查找",parameter_type:'string',query_type:"StudentName",is_explicit:false},
-                {name:"学生3",introduction:"按帽子查找",parameter_type:'string',query_type:"StudentName",is_explicit:false}];
+            var data = [{name:"按照名字查询",introduction:"输入学生的名字",parameter_type:'string',query_type:"StudentName",is_explicit:false},
+                {name:"按监护人查找",introduction:"输入学生的监护人名字",parameter_type:'string',query_type:"StudentParent",is_explicit:false},
+                {name:"按学校查询",introduction:"按学生的学校查找",parameter_type:'string',query_type:"StudentSchool",is_explicit:false}];
 
 
             this.query_types_buffered[this.make_buffer_storage_key(this.entity,key)]=data;
@@ -477,9 +491,11 @@ var Search = {
             //delete the item from stored queries
 
 
-            this.current_query = this.query_types[query_type];
+
 
             this.switch_mode("conditions",{notice:this.current_query["introduction"]});
+
+            this.current_query = this.query_types[query_type];
 
             this.input.val(this.queries[query_type]);
 
