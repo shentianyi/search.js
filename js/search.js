@@ -309,7 +309,7 @@ var Search = {
             if(data.length > 0) {
                 $("#autoComplete-call>ul").empty();
                 var data_template={my_data:data}
-                var render = Mustache.render("{{#my_data}}<li name='{{name}}' query_type='{{query_type}}' >" +
+                var render = Mustache.render("{{#my_data}}<li name='{{name}}' is_explicit=‘{{{is_explicit}}}’ query_type={{query_type}} parameter_type={{parameter_type}} introduction=‘{{introduction}}’ query_type='{{query_type}}' >" +
                     "<p>{{introduction}}</p>"+
                     "</li>{{/my_data}}", data_template );
                 $target.append(render);
@@ -318,12 +318,19 @@ var Search = {
                 $target.append($("<p />").addClass("no_match").text("没有匹配内容..."))
             }
             //here to bind event to on_select_callback
-            var obj=obj,data=data;
-            $("#autoComplete-call li").on("click",{obj:obj,data:data},function(event){
+            var obj=obj;
+            $("#autoComplete-call li").on("click",{obj:obj},function(event){
                 console.log(event.data.obj);
-                console.log(event.data.data);
                 var obj=event.data.obj;
-                var data=event.data.data;
+                var $target=$(this)
+                var data={
+                    name:$target.attr("name"),
+                    introduction:$target.attr("introduction"),
+                    parameter_type:$target.attr("parameter_type"),
+                    query_type:$target.attr("query_type"),
+                    is_explicit:$target.attr("is_explicit")
+                };
+                console.log(data)
                 obj.current_query = data;
                 if(!obj.query_types[obj.current_query['query_type']]){
                     obj.query_types[obj.current_query['query_type']] = obj.current_query;

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e58d87d-aaab-4147-a1b4-31856bd2a7be" name="Default" comment="" />
+    <list default="true" id="7e58d87d-aaab-4147-a1b4-31856bd2a7be" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/search.js" afterPath="$PROJECT_DIR$/js/search.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="search.js.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387173923113" ignored="false" />
-    <file path="/search.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387184892389" ignored="false" />
+    <file path="/Dummy.txt" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387249718158" ignored="false" />
+    <file path="/search.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387251255691" ignored="false" />
     <file path="/index.html" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387183075483" ignored="false" />
     <file path="/wayne-base.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387189878174" ignored="false" />
     <file path="$PROJECT_DIR$/../goschool/app/assets/javascripts/BACK_student.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387189402801" ignored="false" />
@@ -15,6 +18,10 @@
     <file path="$PROJECT_DIR$/../goschool/app/assets/BACK-student-index.html" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387189347051" ignored="false" />
     <file path="$PROJECT_DIR$/../goschool/app/assets/javascripts/BACK_index.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387188440952" ignored="false" />
     <file path="/BACK_index.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387188385546" ignored="false" />
+    <file path="$PROJECT_DIR$/../goschool/app/assets/javascripts/BACK_student_detail.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387250189238" ignored="false" />
+    <file path="/BACK_student_detail.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387250175847" ignored="false" />
+    <file path="$PROJECT_DIR$/../goschool/app/assets/BACK-student-detail.html" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387250034436" ignored="false" />
+    <file path="/BACK-student-detail.html" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387250004152" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,10 +44,8 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="35" selection-start="1642" selection-end="1642" vertical-scroll-proportion="-29.375">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="17" column="80" selection-start="847" selection-end="847" vertical-scroll-proportion="-6.875">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -48,7 +53,7 @@
       <file leaf-file-name="search.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="290" column="18" selection-start="8877" selection-end="8877" vertical-scroll-proportion="0.07614782">
+            <state line="329" column="28" selection-start="10649" selection-end="10649" vertical-scroll-proportion="0.2167991">
               <folding />
             </state>
           </provider>
@@ -57,7 +62,7 @@
       <file leaf-file-name="wayne-base.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/wayne-base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="399" column="5" selection-start="17491" selection-end="17536" vertical-scroll-proportion="-7.230769">
+            <state line="399" column="5" selection-start="17491" selection-end="17536" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -90,8 +95,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="83" />
     <option name="y" value="47" />
-    <option name="width" value="1371" />
-    <option name="height" value="1057" />
+    <option name="width" value="1362" />
+    <option name="height" value="1019" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -119,7 +124,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -154,6 +158,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -215,14 +220,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="83" y="47" width="1371" height="1057" extended-state="1" />
-    <editor active="false" />
+    <frame x="83" y="47" width="1362" height="1019" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284553" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23924528" sideWeight="0.5832106" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24848025" sideWeight="0.5832106" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39972714" sideWeight="0.49960223" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997175" sideWeight="0.5003978" order="7" side_tool="true" content_ui="tabs" />
@@ -300,6 +305,48 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="295" column="24" selection-start="8994" selection-end="8994" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/wayne-base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="399" column="5" selection-start="17491" selection-end="17536" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="35" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="290" column="18" selection-start="8877" selection-end="8877" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/wayne-base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="399" column="5" selection-start="17491" selection-end="17536" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/search.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -310,52 +357,42 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="3" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="372" column="0" selection-start="5799" selection-end="5799" vertical-scroll-proportion="0.33261803">
-          <folding />
-        </state>
+        <state line="372" column="0" selection-start="5799" selection-end="5799" vertical-scroll-proportion="0.33261803" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1316" column="6" selection-start="23208" selection-end="23208" vertical-scroll-proportion="0.091201715">
-          <folding />
-        </state>
+        <state line="1316" column="6" selection-start="23208" selection-end="23208" vertical-scroll-proportion="0.091201715" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="5" selection-start="3025" selection-end="3025" vertical-scroll-proportion="0.62982833">
+        <state line="165" column="5" selection-start="3025" selection-end="3025" vertical-scroll-proportion="0.62982833" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/wayne-base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="399" column="5" selection-start="17491" selection-end="17536" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="35" selection-start="1642" selection-end="1642" vertical-scroll-proportion="-29.375">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/wayne-base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="399" column="5" selection-start="17491" selection-end="17536" vertical-scroll-proportion="-7.230769">
+        <state line="17" column="80" selection-start="847" selection-end="847" vertical-scroll-proportion="-6.875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="290" column="18" selection-start="8877" selection-end="8877" vertical-scroll-proportion="0.07614782">
+        <state line="329" column="28" selection-start="10649" selection-end="10649" vertical-scroll-proportion="0.2167991">
           <folding />
         </state>
       </provider>
