@@ -575,6 +575,7 @@ GLOBAL.autoComplete.count = 0;
                              $("#autoComplete-call .active").click();
                              $("#autoComplete-call").css("left", "-999em").attr("target", "")
                          } else {
+                             alert("下拉框选择一个");
                               MessageBox("请在下拉提示菜单中选择一条", "top", "warning");
                          }
                     }
