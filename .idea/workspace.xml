@@ -4,7 +4,7 @@
     <list default="true" id="7e58d87d-aaab-4147-a1b4-31856bd2a7be" name="Default" comment="" />
     <ignored path="search.js.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387162654778" ignored="false" />
+    <file path="/Dummy.txt" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387249886015" ignored="false" />
     <file path="/search.js" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387180561206" ignored="false" />
     <file path="/index.html" changelist="7e58d87d-aaab-4147-a1b4-31856bd2a7be" time="1387167803630" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="search.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="279" column="19" selection-start="8509" selection-end="8509" vertical-scroll-proportion="0.625">
+            <state line="356" column="123" selection-start="11411" selection-end="11411" vertical-scroll-proportion="0.80851066">
               <folding />
             </state>
           </provider>
@@ -38,7 +38,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="97" selection-start="1103" selection-end="1103" vertical-scroll-proportion="-2.392857">
+            <state line="51" column="97" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -296,6 +296,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="97" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="3" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0">
           <folding />
         </state>
@@ -303,14 +317,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="97" selection-start="1103" selection-end="1103" vertical-scroll-proportion="-2.392857">
+        <state line="51" column="97" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="19" selection-start="8509" selection-end="8509" vertical-scroll-proportion="0.625">
+        <state line="356" column="123" selection-start="11411" selection-end="11411" vertical-scroll-proportion="0.80851066">
           <folding />
         </state>
       </provider>
