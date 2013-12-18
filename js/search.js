@@ -185,7 +185,7 @@ var Search = {
                 }
 
                 else if(event.which == 13){
-                    alert("还未完成，与服务器通讯，获得数据并帮定")
+//                    alert("还未完成，与服务器通讯，获得数据并帮定")
                 }
                 else if(event.which==40 || event.which==38){
                     //把方向键上下排除掉
@@ -371,6 +371,7 @@ var Search = {
                     obj.query_types[obj.current_query['query_type']] = obj.current_query;
                 }
                 obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
+                WAYNE.change_to_select($("#autoComplete-call").attr("target"));
             };
             $("#autoComplete-call li").on("click",{obj:obj},callback);
             $("#autoComplete-call li").unbind("keyup").bind("keyup",{obj:obj},callback);
@@ -543,4 +544,7 @@ WAYNE.change_mode=function(event,mode){
           break;
   }
 
+}
+WAYNE.change_to_select=function(target){
+    $("#"+target).attr("autocomplete","").parent().removeClass("autoComplete");
 }
