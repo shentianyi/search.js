@@ -95,15 +95,17 @@ var Search = {
                         }
                         break;
                     case 'conditions':
-                        this.current_query = null;
+
                         if(mode=="full_text"){
                             this.cast_queries();
+                            this.current_query = null;
                             result =  true;
                         }
                         else if(mode=="conditions"){
                             result = true;
                         }
                         else if(mode=="select_query"){
+                            this.current_query = null;
                             result=  true;
                         }
                         break;
@@ -491,12 +493,12 @@ var Search = {
             //switch mode to conditions
             //delete the item from stored queries
 
-
+            this.current_query = this.query_types[query_type];
 
 
             this.switch_mode("conditions",{notice:this.current_query["introduction"]});
 
-            this.current_query = this.query_types[query_type];
+
 
             this.input.val(this.queries[query_type]);
 
