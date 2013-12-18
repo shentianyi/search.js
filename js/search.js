@@ -371,7 +371,7 @@ var Search = {
                     obj.query_types[obj.current_query['query_type']] = obj.current_query;
                 }
                 obj.switch_mode("conditions",{notice:obj.current_query["introduction"]});
-                WAYNE.change_to_select($("#autoComplete-call").attr("target"));
+                WAYNE.change_to_condition($("#autoComplete-call").attr("target"));
             };
             $("#autoComplete-call li").on("click",{obj:obj},callback);
             $("#autoComplete-call li").unbind("keyup").bind("keyup",{obj:obj},callback);
@@ -491,10 +491,8 @@ var Search = {
             //switch mode to conditions
             //delete the item from stored queries
 
-
-
-
             this.switch_mode("conditions",{notice:this.current_query["introduction"]});
+            WAYNE.change_to_condition(this.input.attr("id"));
 
             this.current_query = this.query_types[query_type];
 
@@ -541,10 +539,11 @@ WAYNE.change_mode=function(event,mode){
           $(event.target).attr("autocomplete","experiment").parent().addClass("autoComplete");
           break;
       case "conditions":
+          $(event.target).attr("autocomplete","").parent().removeClass("autoComplete");
           break;
   }
 
 }
-WAYNE.change_to_select=function(target){
+WAYNE.change_to_condition=function(target){
     $("#"+target).attr("autocomplete","").parent().removeClass("autoComplete");
 }
